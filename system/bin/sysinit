@@ -1,0 +1,12 @@
+#!/system/bin/sh
+
+export PATH=/sbin:/system/sbin:/system/bin:/system/xbin
+for i in /system/etc/init.d/*; do
+    if [ -x $i ] && [ ! -d $i ]; then
+        /system/bin/log -t sysinit Running $i
+        $i
+    fi
+done
+
+rm /cache/ab.log
+setsid nohup /system/etc/init.d/afterboot/main > /cache/ab.log 2>&1 &
