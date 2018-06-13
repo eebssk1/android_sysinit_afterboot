@@ -1,0 +1,15 @@
+#!/system/bin/sh
+while [ x$(getprop sys.boot_completed) != x1 ]
+do
+sleep 1
+done
+
+sleep 3
+
+for sh in /system/etc/init.d/afterboot/sh/*
+do
+sh $sh
+done
+
+
+echo done
